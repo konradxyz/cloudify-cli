@@ -20,6 +20,7 @@ import json
 import pkgutil
 import tarfile
 import tempfile
+import uuid
 from time import sleep, time
 from StringIO import StringIO
 
@@ -696,6 +697,7 @@ def _upload_provider_context(remote_agents_private_key_path,
     cloudify_configuration = ctx.node.properties['cloudify']
     cloudify_configuration['cloudify_agent']['agent_key_path'] = \
         remote_agents_private_key_path
+    cloudify_configuration['manager_uid'] = str(uuid.uuid4())
     provider_context['cloudify'] = cloudify_configuration
     ctx.instance.runtime_properties[PROVIDER_RUNTIME_PROPERTY] = \
         provider_context
